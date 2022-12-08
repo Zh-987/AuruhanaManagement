@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Auruhana.Models.Appointment>
+@using Auruhana.Models
+@using System.Globalization;
+
+@{
+    ViewBag.Title = "Жоспарланған қабылдаулар";
+    Layout = "~/Views/Shared/_profile.cshtml";
+}
+
+<div class="main-container" style="font-size:14px">
+    <div class="container">
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h5 class="page-title text-center">Жоспарланған қабылдаулар</h5>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <th>
+                                   Қабылдау ID
+                                </th>
+                                <th>
+                                    Дәрігер аты-жөні
+                                </th>
+                                <th>
+                                    Уақыты
+                                </th>
+                                <th></th>
+                            </tr>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AppointmentId)
+                                    </td>
+                                    @{
+                                        AuruhanaContext hc = new AuruhanaContext();
+                                        Patient p; Doctor d;
+                                        p = hc.Patients.Find(item.PatientId);
+                                        d = hc.Doctors.Find(item.DoctorId);
+                                    }
+                                    <td>
+                                        @d.DoctorName
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Date)
+                                    </td>
+
+                                    <!--
+                                           <td>
+                                            @Html.ActionLink("Өңдеу", "Edit", new { id = item.AppointmentId }) |
+                                            @Html.ActionLink("Нақытрақ", "Details", new { id = item.AppointmentId }) |
+                                            @Html.ActionLink("Өшіру", "Delete", new { id = item.AppointmentId })
+                                           </td>
+                                    -->
+
+                                </tr>
+                            }
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

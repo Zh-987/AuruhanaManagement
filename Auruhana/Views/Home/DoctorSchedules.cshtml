@@ -1,0 +1,28 @@
+﻿@using Auruhana.Models
+
+@model List<DoctorSchedule>
+
+<h1>Дәргер кестесі</h1>
+
+<table cellspacing="10">
+    <tr>
+        <th>Id </th>
+        <th>Дәрігер Id   </th>
+        <th>Дәрігер аты жөні   </th>
+        <th>Барлық слоттар  </th>
+        <th>Бір жұмада қабылдау уақыты  </th>
+        <th>Уақыт  </th>
+        <th>Хабарласу нөмірі  </th>
+    </tr>
+    @foreach (DoctorSchedule doctorSchedule in Model)
+    {
+        <tr>
+            <td>@doctorSchedule.ScheduleId</td>
+            <td>@doctorSchedule.DoctorId</td>
+            <td>@doctorSchedule.DoctorName</td>
+            <td>@doctorSchedule.TotalSlots</td>
+            <td>@doctorSchedule.DaysOfTheWeek</td>
+            <td>@doctorSchedule.Time</td>
+        </tr>
+    }
+</table>

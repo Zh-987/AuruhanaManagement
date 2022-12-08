@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Auruhana.Models.Prescription>
+@using Auruhana.Models
+@using System.Globalization;
+@{
+    ViewBag.Title = "Қабылдау нәтижесі";
+    Layout = "~/Views/Shared/_profile.cshtml";
+}
+
+
+<div class="container" style="font-size:14px">
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="page-title text-center" style="padding-top:10px"> Қабылдау нәтижесі </h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            Дәрігер ID
+                        </th>
+                        <th>
+                           Диагноз
+                        </th>
+                        <th>
+                           Уақыты
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+
+                        AuruhanaContext hc = new AuruhanaContext();
+                        Appointment a; Patient p; Doctor d;
+                        int userId = Int32.Parse(Session["UserId"].ToString());
+                        List<int> pids = hc.Appointments.Where(x => x.PatientId == userId).Select(x => x.PrescriptionId).ToList();
+                        a = hc.Appointments.Where(u => u.PrescriptionId == item.PId).Single();
+                        p = hc.Patients.Find(a.PatientId);
+                        d = hc.Doctors.Find(a.DoctorId);
+
+                        /*
+                             if (a.PatientId == Int32.Parse(Session["UserId"].ToString())) { 
+                             show prescription list for logged in user}
+
+                             */
+                        <tr>
+                            <td>
+
+                                @Html.DisplayFor(modelItem => item.PId)
+                            </td>
+                            <td>
+                                @d.DoctorName
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Diagnosis)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Date)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Рецепті көру", "ViewPrescription", item)
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="height:300px"> </div>
+

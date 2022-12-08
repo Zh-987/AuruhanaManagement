@@ -1,0 +1,32 @@
+﻿@using Auruhana.Models
+
+@model List<Patient>
+
+<h1>Пациент</h1>
+
+<table cellspacing="10">
+    <tr>
+        <th> Id </th>
+        <th>Пациент аты-жөні  </th>
+        <th> Логині  </th>
+        <th> Құпия сөз  </th>
+        <th> Жынысы  </th>
+        <th> Адресі  </th>
+        <th> Хабарласу нөмірі  </th>
+        <th> Қан группасы  </th>
+    </tr>
+    @foreach (Patient patient in Model)
+    {
+    <tr>
+        <td>@patient.PatientId</td>
+        <td>@patient.PatientName</td>
+        <td>@patient.Username</td>
+        <td>@patient.Password</td>
+        <td>@patient.Gender</td>
+        <td>@patient.Gender</td>
+        <td>@patient.PatientAddress</td>
+        <td>@patient.ContactNo</td>
+        <td>@patient.BloodGroup</td>
+    </tr>
+    }
+</table>

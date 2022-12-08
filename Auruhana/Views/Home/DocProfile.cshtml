@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Auruhana.Models.Appointment>
+@using Auruhana.Models
+
+@{
+    ViewBag.Title = "Қабылдаулар";
+    Layout = "~/Views/Shared/_profile-doc.cshtml";
+}
+
+
+
+
+<div class="main-container" style="font-size:14px">
+    <div class="container">
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-4 col-3">
+                    <h5 class="page-title">Қабылдаулар</h5>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    Қабылдау ID
+                                </th>
+                                <th>
+                                   Пациент аты-жөні
+                                </th>
+                                <th>
+                                    Дәрігер аты-жөні
+                                </th>
+                                <th>
+                                    Қабылдау болған күні
+                                </th>
+                                <th></th>
+                            </tr>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AppointmentId)
+                                        @{ 
+                                            string l = item.AppointmentId.ToString();
+                                        }
+                                    </td>
+                                    @{
+                                        AuruhanaContext hc = new AuruhanaContext();
+                                        Patient p; Doctor d;
+                                        p = hc.Patients.Find(item.PatientId);
+                                        d = hc.Doctors.Find(item.DoctorId);
+                                    }
+                                    <td>
+                                        @p.PatientName
+                                    </td>
+                                    <td>
+                                        @d.DoctorName
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Date)
+                                    </td>
+                                    <td class="text-right">
+                                        @using (Html.BeginForm())
+                                        {
+                                            @Html.AntiForgeryToken()
+                                        <button value=@item.AppointmentId.ToString() type="submit" name="button" class="btn btn-outline-primary take-btn" style="background-color:deepskyblue">Қорытынды шығару</button>
+                                        }
+                                        </td>
+
+                                </tr>
+                            }
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Auruhana.Models.Appointment>
+
+@using Auruhana.Models
+@using System.Globalization;
+@{
+    ViewBag.Title = "Қабылдау тізімі";
+    Layout = "~/Views/Shared/_profile-doc.cshtml";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4 col-3">
+            <h4 class="page-title">Қабылдауға тіркелгендер</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AppointmentId)
+                        </th>
+                        <th>
+                            Пациент аты
+                        </th>
+                        <th>
+                           Дәрігер аты
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Date)
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AppointmentId)
+                            </td>
+                            @{
+                                AuruhanaContext hc = new AuruhanaContext();
+                                Patient p; Doctor d;
+                                p = hc.Patients.Find(item.PatientId);
+                                d = hc.Doctors.Find(item.DoctorId);
+                            }
+                            <td>
+                                @p.PatientName
+                            </td>
+                            <td>
+                                @d.DoctorName
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Date)
+                            </td>
+                            <td class="text-right">
+                                <a href="/Home/WritePrescription" class="btn btn-outline-primary take-btn" style="background-color:deepskyblue">Орын алу</a>
+                            </td>
+
+                            <!--
+                                   <td>
+                                    @Html.ActionLink("Edit", "Өңдеу", new { id = item.AppointmentId }) |
+                                    @Html.ActionLink("Details", "Нақтырақ", new { id = item.AppointmentId }) |
+                                    @Html.ActionLink("Delete", "Өшіру", new { id = item.AppointmentId })
+                                   </td>
+                            -->
+
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="height:300px"> </div>
+
+
+
+
+

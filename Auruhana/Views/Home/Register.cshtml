@@ -1,0 +1,90 @@
+﻿@model Auruhana.Models.Patient
+
+@{
+    ViewBag.Title = "Тіркелу";
+    Layout = "~/Views/Shared/Template.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal form-signin">
+  
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group text-center">
+       Қолданушы аты
+        <div class="col-md-12">
+            @Html.EditorFor(model => model.PatientName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PatientName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group text-center">
+        Жынысы
+        <div class="col-md-12">
+            @Html.DropDownList("Gender", new List<SelectListItem>
+       {
+                new SelectListItem{Text="Ер", Value="Male" },
+                new SelectListItem{Text="Әйел", Value="Female"}
+       })
+            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group text-center">
+       Адресі
+        <div class="col-md-12">
+            @Html.EditorFor(model => model.PatientAddress, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PatientAddress, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group text-center">
+        Қан группасы
+        <div class="col-md-12">
+            @Html.EditorFor(model => model.BloodGroup, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.BloodGroup, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group text-center">
+        Хабарласу нөмірі
+        <div class="col-md-12">
+            @Html.EditorFor(model => model.ContactNo, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ContactNo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group text-center">
+       Логин
+        <div class="col-md-12">
+            @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group text-center">
+       Құпия сөз
+        <div class="col-md-12">
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group text-center">
+        <button class="btn btn-primary account-btn" type="submit">Тіркелу</button>
+    </div>
+    <div class="text-center login-link">
+       Тіркелген болсаңыз <a href="/Home/Login">Кіру</a>
+    </div>
+</div>
+}
+
+<div class="text-center">
+    @Html.ActionLink("Басты бетке оралу", "Index")
+</div>
+
+<script src="@Url.Content("~/Content/Template/assets/")js/jquery-3.2.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>

@@ -1,0 +1,27 @@
+﻿@using Auruhana.Models
+
+@model List<Test>
+
+<h1>Қабылдаулар</h1>
+
+<table cellspacing="10">
+    <tr>
+        <th> Id</th>
+        <th> Пациент Id  </th>
+        <th> Дәрігер Id </th>
+        <th> Қабылдау тест   </th>
+        <th>  Түрі  </th>
+        <th>  нәтиже  </th>
+    </tr>
+    @foreach (Test test in Model)
+    {
+    <tr>
+        <td>@test.TestId</td>
+        <td>@test.PatientId</td>
+        <td>@test.DoctorId</td>
+        <td>@test.TestName</td>
+        <td>@test.TestType</td>
+        <td>@test.Findings</td>
+    </tr>
+    }
+</table>

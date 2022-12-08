@@ -1,0 +1,50 @@
+﻿@model Auruhana.Models.Patient
+
+@{
+    ViewBag.Title = "Кіру";
+    Layout = "~/Views/Shared/_LoginPage.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+      
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.PatientId)
+
+        <div class="form-group text-center">
+          Логин
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group text-center">
+           Құпия сөз
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+       
+
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary account-btn">Кіру</button>
+        </div>
+        <div class="text-center register-link">
+           <a href="/Home/Register">Тіркелу</a>
+        </div>
+        <div class="text-center register-link">
+            Дәрігер ретінде <a href="/Home/DocLogin"> кіру </a>
+        </div>
+    </div>
+}
+
+
+<script src="@Url.Content("~/Content/Template/assets/")js/jquery-3.2.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>

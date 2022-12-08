@@ -1,0 +1,25 @@
+﻿@using Auruhana.Models
+
+@model List<Doctor>
+
+<h1>Дәрігер</h1>
+
+<table cellspacing="10">
+    <tr>
+        <th>Дәрігер ID </th>
+        <th>Аты </th>
+        <th>Бөлімі  </th>
+        <th>Квалификациясы  </th>
+        <th>Жынысы  </th>
+    </tr>
+    @foreach (Doctor doctor in Model)
+    {
+    <tr>
+        <td>@doctor.DoctorId</td>
+        <td>@doctor.DoctorName</td>
+        <td>@doctor.Department</td>
+        <td>@doctor.Qualification</td>
+        <td>@doctor.Gender</td>
+    </tr>
+    }
+</table>

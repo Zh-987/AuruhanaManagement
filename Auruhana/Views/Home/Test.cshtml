@@ -1,0 +1,157 @@
+﻿@model Auruhana.Models.Appointment
+@using System.Globalization;
+@using Auruhana.Models
+
+@{ ViewBag.Title = "Қабылдауға жазылу";
+                Layout = "~/Views/Shared/_profile.cshtml"; }
+
+
+
+
+<div class="main-container" style="font-size:14px">
+    <div class="container">
+        <div class="content">
+            <div class="row">
+                <h4 class="page-title text-center">Дәрігерлер тізімі</h4>
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    Дәругер аты-жөні
+                                </th>
+                                <th>
+                                    Кесте
+                                </th>
+                                <th>
+                                    Қабылдау уақыты
+                                </th>
+                                <th></th>
+                            </tr>
+                            @{ AuruhanaContext hh = new AuruhanaContext();
+                                            List<DoctorSchedule> ll = hh.DoctorSchedules.ToList();
+                                            foreach (var item in ll)
+                                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DoctorName)
+                                    </td>
+
+                                    <td>
+                                        @item.DaysOfTheWeek
+                                    </td>
+                                    <td>
+                                        @item.Time
+                                    </td>
+
+                                </tr> } }
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <h3 style="color:red; align-content:center"> @ViewBag.Message</h3>
+            </div>
+            <div style="padding-top:20px;">
+            <div class="row">
+                <div class="col-md-12 ">
+                    <h4 class="page-title text-center">Қабылдауға тіркелу</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Қабылдау ID</label>
+                                @{ int aId; }
+                                @using (AuruhanaContext h = new AuruhanaContext())
+                                {
+                                    aId = h.Appointments.Max(x => x.AppointmentId) + 1;
+                                }
+                                <input class="form-control" type="text" readonly="" value="APT-000" @aId ">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Пациент аты</label>
+                                <input class="form-control" value="@Session["Username"]" type="text" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        @using (Html.BeginForm())
+                        {
+            @Html.AntiForgeryToken()
+                            <div class="col-md-6">
+                                <label>Дәрігер аты-жөні</label>
+                                <div class="form-group">
+                                    @{ List<SelectListItem> dlist = new List<SelectListItem>();
+                                        AuruhanaContext hc = new AuruhanaContext();
+                                        List<Doctor> doctors = hc.Doctors.ToList();
+                                        foreach (Doctor d in doctors)
+                                        {
+                                            dlist.Add(new SelectListItem { Text = d.DoctorName + "(" + d.Department + ")", Value = d.DoctorName });
+                                        } }
+                                    @Html.DropDownList("DoctorName", dlist)
+                                </div>
+                            </div>
+                                            <div class="col-md-6"> </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+
+                                                                        <div class="cal-icon">
+                                                                            <label> Датасы</label>
+                                                                                            @{ AuruhanaContext h = new AuruhanaContext();
+                                                                                                DoctorSchedule schedule = h.DoctorSchedules.Find(2);
+
+                                                                                                List<SelectListItem> l = new List<SelectListItem>();
+                                                                                                DateTime today = DateTime.Today;
+
+                                                                                                for (int i = 0; i < 4; i++)
+                                                                                                {
+                                                                                                    l.Add(new SelectListItem { Text = today.ToString("dd/MM/yyyy"), Value = today.ToString("dd/MM/yyyy") });
+                                                                                                    today = today.AddDays(1);
+                                                                                                }
+                                                                                @Html.DropDownList("Date", l) }
+                                                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label>Қабылдау уақыттары</label>
+                                                                        <div class="time-icon">
+
+                                                                            @{ List<SelectListItem> list = new List<SelectListItem>();
+                                                                                                String[] times = schedule.Time.Split('-');
+
+                                                                                                DateTime time = DateTime.ParseExact(times[0], "hh:mm tt", CultureInfo.InvariantCulture);
+                                                                                                while (time.ToString("hh:mm tt") != times[1])
+                                                                                                {
+                                                                                                    list.Add(new SelectListItem { Text = time.ToString("hh:mm tt"), Value = time.ToString("hh:mm tt") });
+                                                                                                    time = time.AddMinutes(20);
+                                                                                                }
+                                                                                                list.Add(new SelectListItem { Text = time.ToString("hh:mm tt"), Value = time.ToString("hh:mm tt") });
+                                                                                @Html.DropDownList("Time", list) }
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                                            <div class="m-t-20 text-center">
+                                                                                <button type="submit" class="btn btn-primary submit-btn">Қабылдауға тіркелу</button>
+                                                                            </div>}
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

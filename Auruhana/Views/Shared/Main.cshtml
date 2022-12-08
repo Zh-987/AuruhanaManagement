@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>Аурухана</title>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Main/assets/")css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Main/assets/")font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Main/assets/")select2.min.css">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Main/assets/")bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Main/assets/")style.css">
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/Medino/assets/")css/animate-3.7.0.css">
+    <link rel="stylesheet" href="@Url.Content("~/Content/Medino/assets/")css/font-awesome-4.7.0.min.css">
+    <link rel="stylesheet" href="@Url.Content("~/Content/Medino/assets/")css/bootstrap-4.1.3.min.css">
+    <link rel="stylesheet" href="@Url.Content("~/Content/Medino/assets/")css/owl-carousel.min.css">
+    <link rel="stylesheet" href="@Url.Content("~/Content/Medino/assets/")css/jquery.datetimepicker.min.css">
+    <link rel="stylesheet" href="@Url.Content("~/Content/Medino/assets/")css/linearicons.css">
+    <link rel="stylesheet" href="@Url.Content("~/Content/Medino/assets/")css/style.css">
+    <!--[if lt IE 9]>
+        <script src="assets/js/html5shiv.min.js"></script>
+        <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <header class="header-area">
+        <div id="header" id="home">
+            <div class="container">
+                <div class="row align-items-center justify-content-between d-flex">
+                    <div id="logo">
+                        <a href="/Home">Аурухана</a>
+                    </div>
+                    <nav id="nav-menu-container">
+                        <ul class="nav-menu">
+                            <li class="menu-active"><a href="/Home">Басты бет</a></li>
+
+                            @if (Session["UserId"] == null)
+                            {
+                                <li><a href='/Home/Login'>Кіру</a></li>
+                                <li><a href="/Home/Register"> Тіркелу</a></li>
+                            }
+                            else
+                            {
+                                if (Session["DoctorId"] == null)
+                                {
+                                    <li><a href='/Home/Test'> Менің профайлым</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href='/Home/DocProfile'>Менің профайлым</a></li>
+                                }
+                            }
+                        </ul>
+                    </nav><!-- #nav-menu-container -->
+                </div>
+            </div>
+        </div>
+
+
+    </header>
+    <div style="height:150px; width:100%"> </div>
+
+    @RenderBody()
+
+    
+    <script src="@Url.Content("~/Content/Main/assets/")js/jquery-3.2.1.min.js"></script>
+    <script src="@Url.Content("~/Content/Main/assets/")js/popper.min.js"></script>
+    <script src="@Url.Content("~/Content/Main/assets/")js/bootstrap.min.js"></script>
+    <script src="@Url.Content("~/Content/Main/assets/")js/jquery.slimscroll.js"></script>
+    <script src="@Url.Content("~/Content/Main/assets/")js/select2.min.js"></script>
+    <script src="@Url.Content("~/Content/Main/assets/")js/moment.min.js"></script>
+    <script src="@Url.Content("~/Content/Main/assets/")js/bootstrap-datetimepicker.min.js"></script>
+    <script src="@Url.Content("~/Content/Main/assets/")js/app.js"></script>
+    <script src="@Url.Content("~/Content/Medino/assets/")js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="@Url.Content("~/Content/Medino/assets/")js/vendor/bootstrap-4.1.3.min.js"></script>
+    <script src="@Url.Content("~/Content/Medino/assets/")js/vendor/wow.min.js"></script>
+    <script src="@Url.Content("~/Content/Medino/assets/")js/vendor/owl-carousel.min.js"></script>
+    <script src="@Url.Content("~/Content/Medino/assets/")js/vendor/jquery.datetimepicker.full.min.js"></script>
+    <script src="@Url.Content("~/Content/Medino/assets/")js/vendor/jquery.nice-select.min.js"></script>
+    <script src="@Url.Content("~/Content/Medino/assets/")js/vendor/superfish.min.js"></script>
+    <script src="@Url.Content("~/Content/Medino/assets/")js/main.js"></script>
+
+</body>
+</html>

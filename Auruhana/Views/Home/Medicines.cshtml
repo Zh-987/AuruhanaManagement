@@ -1,0 +1,25 @@
+﻿@using Auruhana.Models
+
+@model List<Medicine>
+
+<h1>Дәрі</h1>
+
+<table cellspacing="10">
+    <tr>
+        <th> Id </th>
+        <th> Бренді  </th>
+        <th> Құрған компания  </th>
+        <th> Дозасы  </th>
+        <th> Эффектісі  </th>
+    </tr>
+    @foreach (Medicine medicine in Model)
+    {
+        <tr>
+            <td>@medicine.MedicineId</td>
+            <td>@medicine.BrandName</td>
+            <td>@medicine.GenericName</td>
+            <td>@medicine.Dosages</td>
+            <td>@medicine.SideEffects</td>
+        </tr>
+    }
+</table>
